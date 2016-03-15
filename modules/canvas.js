@@ -7,7 +7,7 @@ var calc = require('../lib/calculator');
 
 exports.process = function (fullImagePath, fullImagePathResult, size, callback) {
   fs.readFile( fullImagePath, function(err, squid){
-    if (err) throw err;
+    if (err) callback(err);
     var img = new Image;
     img.src = squid;
 
@@ -17,7 +17,7 @@ exports.process = function (fullImagePath, fullImagePathResult, size, callback) 
     var ctx = canvas.getContext('2d');
     ctx.imageSmoothingEnabled = true;
 
-    ctx.drawImage(img, imgParams['dx'], 0, imgParams['width'], imgParams['height']);
+    ctx.drawImage(img, -imgParams['dx'], 0, imgParams['width'], imgParams['height']);
 
     var out = fs.createWriteStream( fullImagePathResult )
     var stream = canvas.jpegStream({
@@ -30,9 +30,7 @@ exports.process = function (fullImagePath, fullImagePathResult, size, callback) 
       out.write(chunk);
     });
 
-    stream.on('end', function(){
-      callback();
-    });
+    stream.on('end', callback);
 
   });
 }

@@ -12,11 +12,13 @@ exports.process = function (fullImagePath, fullImagePathResult, size, callback) 
         imgParams = calc.correctSize(imageSize.width, imageSize.height, size[0], size[1]);
         this
           .resize(imgParams['width'], imgParams['height'])
-          .crop(size[0], size[1], -imgParams['dx'], 0)
+          .crop(size[0], size[1], imgParams['dx'], 0)
           .write(fullImagePathResult, function (err) {
             if (err) console.log(err);
             callback();
           });
+      } else {
+        callback( err );
       }
     })
 }

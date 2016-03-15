@@ -1,5 +1,4 @@
 'use strict';
-
 var im = require('imagemagick');
 var calc = require('../lib/calculator');
 
@@ -14,14 +13,14 @@ exports.process = function (fullImagePath, fullImagePathResult, size, callback) 
       dstPath: fullImagePathResult,
       width: imgParams['width'],
       height: imgParams['height'],
-    }, function(){
+    }, function(err, stdout, stderr){
       im.crop({
         srcPath: fullImagePathResult,
         dstPath: fullImagePathResult,
         width: size[0],
         height: size[1],
         gravity: "North",
-      }, function(){
+      }, function(err, stdout, stderr){
         callback();
       })
     });

@@ -9,7 +9,7 @@ exports.process = function (fullImagePath, fullImagePathResult, size, callback) 
     var imgParams = calc.correctSize(image.width(), image.height(), size[0], size[1]);
     image.batch()
     .resize(imgParams['width'],imgParams['height'])
-    .crop(-imgParams['dx'], 0, size[0], size[1])
+    .crop(imgParams['dx'], 0, size[0], size[1])
     .writeFile(fullImagePathResult, function(err){
       callback();
     });
