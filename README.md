@@ -61,4 +61,4 @@ lwip.js : done in 73.891623 sec; 0.406 img/sec; minCPUidle: 96%; minFreeMem: 157
 == DONE ==
 ```
 
-In this example you can see, than [canvas](https://github.com/Automattic/node-canvas) module is the best, regards to speed of processing of images 
+In this example you can see, than [canvas](https://github.com/Automattic/node-canvas) module is the best, regards to speed of processing of images (~4 imgages per second on my local computer)
