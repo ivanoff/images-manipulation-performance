@@ -12,7 +12,7 @@ var os = require("os");
 var cpus = os.cpus();
 
 var options = {
-  cooldownTimeout: 2,   // time out to cooldown, sec
+  cooldownTimeout: 10,   // time out to cooldown, sec
   modulesPath: './modules/', // path to resize modules
   sizes: [              // new sizes to resize
     [50, 50],
@@ -41,7 +41,7 @@ var images = imagesList.map( function(image){
 
 // Requiring modules and make resize
 var jobs = [];
-var imageProcessing, timeBegin, currentStep;
+var imageProcessing, timeBegin, currentStep, systemParameters;
 var modulesPath = require("path").join(__dirname, options.modulesPath);
 var totalSteps = images.length * options.sizes.length;
 
@@ -49,7 +49,8 @@ fs.readdir( modulesPath, function (err, modules) {
   modules = modules.filter( function (item) {
     return fs.lstatSync(options.modulesPath + item).isFile();
   });
-  console.log(' Found modules: ' + modules.join(', '));
+  console.log('Found modules: ' + modules.join(', '));
+  console.log('== START ==');
   modules.forEach( function( module ){
     jobs.push( function(next){
       for( var i = options.cooldownTimeout; i > 0; i-- ) {
@@ -59,6 +60,7 @@ fs.readdir( modulesPath, function (err, modules) {
       currentStep = 0;
       imageProcessing = require(options.modulesPath+module);
       var hrTime = process.hrtime();
+      systemParameters = getRelationParameters({});
       timeBegin = hrTime[0] * 1000000 + hrTime[1] / 1000;
       next();
     });
@@ -67,6 +69,7 @@ fs.readdir( modulesPath, function (err, modules) {
         jobs.push( function(next){
           imageTo = image.to.replace( /\.([^\.]*?)$/, "-" + size[0] + "x" + size[1] + ".$1" );
           imageProcessing.process(image.from, imageTo, size, function(err, result){
+            systemParameters = getRelationParameters(systemParameters);
             process.stdout.write('\r' + module
               + " : steps "+ (++currentStep) + "/" + totalSteps 
               + '; size ' + size );
@@ -80,7 +83,10 @@ fs.readdir( modulesPath, function (err, modules) {
       var timeEnd = hrTime[0] * 1000000 + hrTime[1] / 1000;
       var duration = Math.round(timeEnd-timeBegin)/1000000;
       var ips = Math.round( totalSteps / duration * 1000 )/1000;
-      console.log( '\r'+ module + ' : done in ' + duration + ' sec; '+ ips +' img/sec');
+      console.log( '\r'+ module + ' : done in ' + duration + ' sec; ' + ips +' img/sec'
+        + '; minCPUidle: '+ systemParameters.cpuIdleMin + '%'
+        + '; minFreeMem: '+ Math.round(systemParameters.freeMemMin/1000000) + 'Mb'
+        + '; MaxLoadAvg: '+ Math.round(systemParameters.loadAvgMax*100)/100 + '' );
       next();
     });
   });
@@ -89,6 +95,22 @@ fs.readdir( modulesPath, function (err, modules) {
   });
 });
 
+function getRelationParameters (params) {
+  if (!params.freeMemMin || params.freeMemMin > os.freemem())
+    params.freeMemMin = os.freemem();
+  if (!params.loadAvgMax || params.loadAvgMax < os.loadavg()[0])
+    params.loadAvgMax = os.loadavg()[0];
+  for(var cpuId = 0, len = cpus.length; cpuId < len; cpuId++) {
+    var cpu = cpus[cpuId];
+    var total = 0;
+    for(type in cpu.times) 
+      total += cpu.times[type];
+    var cpuIdleLast = Math.round(100 * cpu.times['idle'] / total);
+    if (!params.cpuIdleMin || params.cpuIdleMin > cpuIdleLast)
+      params.cpuIdleMin = cpuIdleLast;
+  }
+  return (params);
+}
 
 function resizeWithModule( process, size, images, callback ){
 //  images.forEach( function(image) {
