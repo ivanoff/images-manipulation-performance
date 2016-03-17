@@ -47,7 +47,7 @@ for example:
 
 ## Result example
 
-`
+```
 Found images:
   4198671-green-sea-view.jpg
   Beautiful-Sea-Pier-In-Chile-Hdr-Wide-Desktop-Background-Wallpapers-Beautiful-Sea-Wallpaper-.jpg
@@ -59,6 +59,6 @@ gm-imagemagic.js : done in 24.88003 sec; 1.206 img/sec; minCPUidle: 96%; minFree
 gm.js : done in 19.528429 sec; 1.536 img/sec; minCPUidle: 96%; minFreeMem: 490Mb; MaxLoadAvg: 1.84
 lwip.js : done in 73.891623 sec; 0.406 img/sec; minCPUidle: 96%; minFreeMem: 157Mb; MaxLoadAvg: 1.56
 == DONE ==
-`
+```
 
 In this example you can see, than [canvas](https://github.com/Automattic/node-canvas) module is the best, regards to speed of processing of images 
