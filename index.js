@@ -41,16 +41,25 @@ var images = imagesList.map( function(image){
 
 // Requiring modules and make resize
 var jobs = [];
-var imageProcessing;
+var imageProcessing, timeBegin, currentStep;
 var modulesPath = require("path").join(__dirname, options.modulesPath);
+var totalSteps = images.length * options.sizes.length;
 
-fs.readdir( modulesPath, function( err, modules ){
+fs.readdir( modulesPath, function (err, modules) {
+  modules = modules.filter( function (item) {
+    return fs.lstatSync(options.modulesPath + item).isFile();
+  });
   console.log(' Found modules: ' + modules.join(', '));
   modules.forEach( function( module ){
-    var stats = fs.lstatSync(options.modulesPath+module);
-    if (!stats.isDirectory()) {
     jobs.push( function(next){
+      for( var i = options.cooldownTimeout; i > 0; i-- ) {
+        process.stdout.write( i + ' seconds cool down sleep  \r' );
+        sleep.sleep(1);
+      }
+      currentStep = 0;
       imageProcessing = require(options.modulesPath+module);
+      var hrTime = process.hrtime();
+      timeBegin = hrTime[0] * 1000000 + hrTime[1] / 1000;
       next();
     });
     options.sizes.forEach( function( size ){
@@ -58,20 +67,25 @@ fs.readdir( modulesPath, function( err, modules ){
         jobs.push( function(next){
           imageTo = image.to.replace( /\.([^\.]*?)$/, "-" + size[0] + "x" + size[1] + ".$1" );
           imageProcessing.process(image.from, imageTo, size, function(err, result){
-            console.log('done ' + size);
+            process.stdout.write('\r' + module
+              + " : steps "+ (++currentStep) + "/" + totalSteps 
+              + '; size ' + size );
             next();
           });
         });
       });
     });
     jobs.push( function(next){
-      console.log('== DONE ==');
+      hrTime = process.hrtime();
+      var timeEnd = hrTime[0] * 1000000 + hrTime[1] / 1000;
+      var duration = Math.round(timeEnd-timeBegin)/1000000;
+      var ips = Math.round( totalSteps / duration * 1000 )/1000;
+      console.log( '\r'+ module + ' : done in ' + duration + ' sec; '+ ips +' img/sec');
       next();
     });
-    }
   });
   async.waterfall(jobs, function(err) {
-    console.log('== DONE ==?????????');
+    console.log('== DONE ==');
   });
 });
 
