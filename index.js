@@ -12,9 +12,9 @@ var os = require("os");
 var cpus = os.cpus();
 
 var options = {
-  cooldownTimeout: 10,   // time out to cooldown, sec
   modulesPath: './modules/', // path to resize modules
-  sizes: [              // new sizes to resize
+  cooldownTimeout: 10,       // time out to cooldown, sec
+  sizes: [                   // new sizes to resize
     [50, 50],
     [100, 100],
     [250, 250],
@@ -52,6 +52,7 @@ fs.readdir( modulesPath, function (err, modules) {
   console.log('Found modules: ' + modules.join(', '));
   console.log('== START ==');
   modules.forEach( function( module ){
+    // prepare job array for async
     jobs.push( function(next){
       for( var i = options.cooldownTimeout; i > 0; i-- ) {
         process.stdout.write( i + ' seconds cool down sleep  \r' );
@@ -111,144 +112,3 @@ function getRelationParameters (params) {
   }
   return (params);
 }
-
-function resizeWithModule( process, size, images, callback ){
-//  images.forEach( function(image) {
-//    console.log(image);
-//    process(image.from, image.to, size, callback);
-//  });
-
-//  sleep.sleep(1);
-//  callback();
-/*
-  var count = 0;
-  var cpuIdleMin, freeMemMin, loadAvgMax;
-
-  fs.readdir(pathSource, function( err, files ){
-    for (var i = 0; i < files.length; i++) {
-      var imageName = files[i];
-        var fullImagePath = pathSource + imageName;
-        var fullImagePathResult = pathResult + imageName.replace(/(\..*?)$/, '_' + size[0] + '.jpg');
-
-        imageProcessing.process( fullImagePath, fullImagePathResult, size, function(){
-          count++;
-
-          // store wrose system info
-          for(var cpuId = 0, len = cpus.length; cpuId < len; cpuId++) {
-            var cpu = cpus[cpuId];
-            var total = 0;
-            for(type in cpu.times) 
-              total += cpu.times[type];
-            var cpuIdleLast = Math.round(100 * cpu.times['idle'] / total);
-            if (!cpuIdleMin || cpuIdleMin > cpuIdleLast)
-              cpuIdleMin = cpuIdleLast;
-          }
-          if (!freeMemMin || freeMemMin > os.freemem())
-            freeMemMin = os.freemem();
-          if (!loadAvgMax || loadAvgMax < os.loadavg()[0])
-            loadAvgMax = os.loadavg()[0];
-
-          if( count == files.length ) {
-            callback( null,
-//                ', duration: ' + Math.round(duration*100)/100 + 'sec, '
-//              + ( Math.round(count/duration*100)/100 ) + 'img/sec'
-              + '. minCPUidle:' + cpuIdleMin + '%'
-              + '. minFreeMem:'+ Math.round(freeMemMin/1000000) + 'Mb'
-              + '. MaxLoadAvg:'+ Math.round(loadAvgMax*100)/100 + '' );
-          }
-        })
-    }
-  })
-*/
-}
-
-
-/*
-
-
-var hrTime, timeBegin, imageProcessing;
-
-function resizeUsingModule( module, size, callback ){
-  var count = 0;
-  var cpuIdleMin, freeMemMin, loadAvgMax;
-
-  fs.readdir(pathSource, function( err, files ){
-    for (var i = 0; i < files.length; i++) {
-      var imageName = files[i];
-        var fullImagePath = pathSource + imageName;
-        var fullImagePathResult = pathResult + imageName.replace(/(\..*?)$/, '_' + size[0] + '.jpg');
-
-        imageProcessing.process( fullImagePath, fullImagePathResult, size, function(){
-          count++;
-
-          // store wrose system info
-          for(var cpuId = 0, len = cpus.length; cpuId < len; cpuId++) {
-            var cpu = cpus[cpuId];
-            var total = 0;
-            for(type in cpu.times) 
-              total += cpu.times[type];
-            var cpuIdleLast = Math.round(100 * cpu.times['idle'] / total);
-            if (!cpuIdleMin || cpuIdleMin > cpuIdleLast)
-              cpuIdleMin = cpuIdleLast;
-          }
-          if (!freeMemMin || freeMemMin > os.freemem())
-            freeMemMin = os.freemem();
-          if (!loadAvgMax || loadAvgMax < os.loadavg()[0])
-            loadAvgMax = os.loadavg()[0];
-
-          if( count == files.length ) {
-            callback( null,
-//                ', duration: ' + Math.round(duration*100)/100 + 'sec, '
-//              + ( Math.round(count/duration*100)/100 ) + 'img/sec'
-              + '. minCPUidle:' + cpuIdleMin + '%'
-              + '. minFreeMem:'+ Math.round(freeMemMin/1000000) + 'Mb'
-              + '. MaxLoadAvg:'+ Math.round(loadAvgMax*100)/100 + '' );
-          }
-        })
-    }
-  })
-}
-
-var jobs = [];
-
-// Get the names of image processing modules
-var modulesPath = require("path").join(__dirname, "modules");
-fs.readdir( modulesPath, function( err, modules ){
-
-for (var m = 0; m < modules.length; m++) {
-  function v ( module ) {
-  jobs.push( function( callback ){
-    for( var i = options.cooldownTimeout; i > 0; i-- ) {
-      process.stdout.write( i + ' seconds cool down sleep  \r' );
-      sleep.sleep(1);
-//      callback();
-    }
-
-    imageProcessing = require('./modules/'+module);
-    hrTime = process.hrtime();
-    timeBegin = hrTime[0] * 1000000 + hrTime[1] / 1000;
-  });
-  }
-  v( modules[m] );
-  for (var j = 0; j<options.sizes.length; j++) {
-    function v2 ( module, size ) {
-        jobs.push( function( callback ){
-          resizeUsingModule( module, size, callback );
-        });
-    }
-    v2( modules[m], options.sizes[j] );
-  }
-  jobs.push( function( callback ){
-    hrTime = process.hrtime();
-    var timeEnd = hrTime[0] * 1000000 + hrTime[1] / 1000;
-    var duration = Math.round(timeEnd-timeBegin)/1000000;
-    console.log();
-    callback();
-  });
-}
-
-async.waterfall( jobs, function (err, result) {} );
-
-});
-
-*/
