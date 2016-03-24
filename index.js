@@ -5,28 +5,12 @@ if (process.argv.length <= 3) {
   process.exit(-1);
 }
 
+var config = require('config');
 var fs = require('fs');
 var async = require('async');
 var sleep = require('sleep');
 var os = require("os");
 var cpus = os.cpus();
-
-var options = {
-  modulesPath: './modules/', // path to resize modules
-  cooldownTimeout: 10,       // time out to cooldown, sec
-  sizes: [                   // new sizes to resize
-    [50, 50],
-    [100, 100],
-    [250, 250],
-    [400, 300],
-    [750, 750],
-    [800, 600],
-    [900, 900],
-    [1000, 500],
-    [1200, 1200],
-    [2000, 2000],
-  ],
-};
 
 // Prepare list of images
 var pathSource = process.argv[2] + '/';
@@ -42,30 +26,30 @@ var images = imagesList.map( function(image){
 // Requiring modules and make resize
 var jobs = [];
 var imageProcessing, timeBegin, currentStep, systemParameters;
-var modulesPath = require("path").join(__dirname, options.modulesPath);
-var totalSteps = images.length * options.sizes.length;
+var modulesPath = require("path").join(__dirname, config.get('modulesPath'));
+var totalSteps = images.length * config.get('sizes').length;
 
 fs.readdir( modulesPath, function (err, modules) {
   modules = modules.filter( function (item) {
-    return fs.lstatSync(options.modulesPath + item).isFile();
+    return fs.lstatSync(config.get('modulesPath') + item).isFile();
   });
   console.log('Found modules: ' + modules.join(', '));
   console.log('== START ==');
   modules.forEach( function( module ){
     // prepare job array for async
     jobs.push( function(next){
-      for( var i = options.cooldownTimeout; i > 0; i-- ) {
+      for( var i = config.get('cooldownTimeout'); i > 0; i-- ) {
         process.stdout.write( i + ' seconds cool down sleep  \r' );
         sleep.sleep(1);
       }
       currentStep = 0;
-      imageProcessing = require(options.modulesPath+module);
+      imageProcessing = require(modulesPath+module);
       var hrTime = process.hrtime();
       systemParameters = getRelationParameters({});
       timeBegin = hrTime[0] * 1000000 + hrTime[1] / 1000;
       next();
     });
-    options.sizes.forEach( function( size ){
+    config.get('sizes').forEach( function( size ){
       images.forEach( function(image) {
         jobs.push( function(next){
           imageTo = image.to.replace( /\.([^\.]*?)$/, "-" + size[0] + "x" + size[1] + ".$1" );
@@ -84,7 +68,7 @@ fs.readdir( modulesPath, function (err, modules) {
       var timeEnd = hrTime[0] * 1000000 + hrTime[1] / 1000;
       var duration = Math.round(timeEnd-timeBegin)/1000000;
       var ips = Math.round( totalSteps / duration * 1000 )/1000;
-      console.log( '\r'+ module + ' : done in ' + duration + ' sec; ' + ips +' img/sec'
+      console.log( '\r'+ module + ' : ' + ips +' img/sec; done in ' + duration + ' sec'
         + '; minCPUidle: '+ systemParameters.cpuIdleMin + '%'
         + '; minFreeMem: '+ Math.round(systemParameters.freeMemMin/1000000) + 'Mb'
         + '; MaxLoadAvg: '+ Math.round(systemParameters.loadAvgMax*100)/100 + '' );
