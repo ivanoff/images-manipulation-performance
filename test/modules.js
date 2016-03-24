@@ -1,6 +1,7 @@
 'use strict';
 var config = require('config');
 var fs = require('fs');
+var staticPath = './test/static/';
 
 describe('Check modules', function () {
 
@@ -12,12 +13,40 @@ describe('Check modules', function () {
 
     modules.forEach( function( module ){
       describe('module ' + module, function () {
+        var ip = require(modulesPath+module);
+
         it( 'module has process function', function (done) {
-          var imageProcessing = require(modulesPath+module);
-          imageProcessing.should.have.property('process');
-          imageProcessing.process.should.be.an.instanceOf(Function);
+          ip.should.have.property('process');
+          ip.process.should.be.an.instanceOf(Function);
           done();
         });
+
+        var origin = staticPath+'original.jpg';
+        var result = staticPath+'result.jpg';
+
+        it( 'checking reduxtion results', function (done) {
+          ip.process(origin, result, [150,150], function(err){
+            (err === undefined).should.be.true;
+            var statsOrigin = fs.statSync( origin );
+            var statsResult = fs.statSync( result );
+            statsResult.size.should.be.above(0).and.below( statsOrigin.size );
+            fs.unlinkSync( result );
+            done();
+          });
+        });
+
+        it( 'checking shrink results', function (done) {
+          ip.process(origin, result, [1200,1200], function(err){
+            (err === undefined).should.be.true;
+            var statsOrigin = fs.statSync( origin );
+            var statsResult = fs.statSync( result );
+            statsResult.size.should.be.above(0).and.above( statsOrigin.size );
+            fs.unlinkSync( result );
+            done();
+          });
+
+        });
+
       });
     });
 

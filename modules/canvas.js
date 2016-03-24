@@ -26,11 +26,15 @@ exports.process = function (fullImagePath, fullImagePathResult, size, callback) 
 //      progressive: false, // true for progressive compression, default: false
     });
 
+    var bufs = [];
     stream.on('data', function(chunk){
-      out.write(chunk);
+      bufs.push( chunk );
     });
 
-    stream.on('end', callback);
+    stream.on('end', function(){
+      fs.writeFileSync( fullImagePathResult, bufs );
+      callback();
+    });
 
   });
 }
