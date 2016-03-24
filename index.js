@@ -1,4 +1,4 @@
-//'use strict';
+'use strict';
 
 if (process.argv.length <= 3) {
   console.log("Usage: " + __filename + " <path/to/original> <path/to/result>");
@@ -52,7 +52,7 @@ fs.readdir( modulesPath, function (err, modules) {
     config.get('sizes').forEach( function( size ){
       images.forEach( function(image) {
         jobs.push( function(next){
-          imageTo = image.to.replace( /\.([^\.]*?)$/, "-" + size[0] + "x" + size[1] + ".$1" );
+          var imageTo = image.to.replace( /\.([^\.]*?)$/, "-" + size[0] + "x" + size[1] + ".$1" );
           imageProcessing.process(image.from, imageTo, size, function(err, result){
             systemParameters = getRelationParameters(systemParameters);
             process.stdout.write('\r' + module
@@ -64,7 +64,7 @@ fs.readdir( modulesPath, function (err, modules) {
       });
     });
     jobs.push( function(next){
-      hrTime = process.hrtime();
+      var hrTime = process.hrtime();
       var timeEnd = hrTime[0] * 1000000 + hrTime[1] / 1000;
       var duration = Math.round(timeEnd-timeBegin)/1000000;
       var ips = Math.round( totalSteps / duration * 1000 )/1000;
@@ -88,7 +88,7 @@ function getRelationParameters (params) {
   for(var cpuId = 0, len = cpus.length; cpuId < len; cpuId++) {
     var cpu = cpus[cpuId];
     var total = 0;
-    for(type in cpu.times) 
+    for(var type in cpu.times) 
       total += cpu.times[type];
     var cpuIdleLast = Math.round(100 * cpu.times['idle'] / total);
     if (!params.cpuIdleMin || params.cpuIdleMin > cpuIdleLast)
