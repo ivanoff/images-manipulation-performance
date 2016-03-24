@@ -59,10 +59,10 @@ Found images:
   Bluestone-valley-view_-_Virginia_-_ForestWander.jpg
 Found modules: canvas.js, gm-imagemagic.js, gm.js, lwip.js
 == START ==
-canvas.js : done in 7.498536 sec; 4.001 img/sec; minCPUidle: 96%; minFreeMem: 283Mb; MaxLoadAvg: 1.48
-gm-imagemagic.js : done in 24.88003 sec; 1.206 img/sec; minCPUidle: 96%; minFreeMem: 456Mb; MaxLoadAvg: 1.59
-gm.js : done in 19.528429 sec; 1.536 img/sec; minCPUidle: 96%; minFreeMem: 490Mb; MaxLoadAvg: 1.84
-lwip.js : done in 73.891623 sec; 0.406 img/sec; minCPUidle: 96%; minFreeMem: 157Mb; MaxLoadAvg: 1.56
+canvas.js : 4.001 img/sec; done in 7.498536 sec; minCPUidle: 96%; minFreeMem: 283Mb; MaxLoadAvg: 1.48
+gm-imagemagic.js : 1.206 img/sec; done in 24.88003 sec; minCPUidle: 96%; minFreeMem: 456Mb; MaxLoadAvg: 1.59
+gm.js : 1.536 img/sec; done in 19.528429 sec; minCPUidle: 96%; minFreeMem: 490Mb; MaxLoadAvg: 1.84
+lwip.js : 0.406 img/sec; done in 73.891623 sec; minCPUidle: 96%; minFreeMem: 157Mb; MaxLoadAvg: 1.56
 == DONE ==
 ```
 
