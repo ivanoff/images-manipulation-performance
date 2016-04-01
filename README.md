@@ -1,6 +1,6 @@
-# Node.js image processing compare
+# Node.js images manipulation performance
 
-Compare Node.js's modules for processing request 
+Compare Node.js's modules for images processing request 
 
 ## Modules instalation
 
@@ -28,9 +28,9 @@ Windows | [Instructions on our wiki](https://github.com/Automattic/node-canvas/w
 
 *Please read `Modules instalation` section before.*
 
-`git clone https://github.com/ivanoff/image-processing-compare.git`
+`git clone https://github.com/ivanoff/images-manipulation-performance.git`
 
-`cd image-processing-compare`
+`cd images-manipulation-performance`
 
 `npm install`
 
