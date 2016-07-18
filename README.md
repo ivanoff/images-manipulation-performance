@@ -70,7 +70,7 @@ lwip.js : 0.821 img/sec; done in 121.843491 sec; minCPUidle: 92%; minFreeMem: 14
 
 In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~8 imgages per second on my local computer)
 
-[[https://github.com/ivanoff/images-manipulation-performance/static/modules_images.png|alt=images per second]]
+[[https://github.com/ivanoff/images-manipulation-performance/blob/master/static/modules_images.png|alt=images_per_second]]
 
 
 ## License
