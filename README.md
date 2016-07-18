@@ -21,6 +21,7 @@ Windows | [Instructions on our wiki](https://github.com/Automattic/node-canvas/w
 ### gm
 
 `sudo apt-get install imagemagick`
+
 `sudo apt-get install graphicsmagick`
 
 
@@ -48,7 +49,7 @@ where <source_folder> is foulder where original images are stored, <result_folde
 
 for example:
 
-`node index.js ../original ../result`
+`node index.js static/original static/result`
 
 ## Result example
 
@@ -59,10 +60,11 @@ Found images:
   Bluestone-valley-view_-_Virginia_-_ForestWander.jpg
 Found modules: canvas.js, gm-imagemagic.js, gm.js, lwip.js
 == START ==
-canvas.js : 4.001 img/sec; done in 7.498536 sec; minCPUidle: 96%; minFreeMem: 283Mb; MaxLoadAvg: 1.48
-gm-imagemagic.js : 1.206 img/sec; done in 24.88003 sec; minCPUidle: 96%; minFreeMem: 456Mb; MaxLoadAvg: 1.59
-gm.js : 1.536 img/sec; done in 19.528429 sec; minCPUidle: 96%; minFreeMem: 490Mb; MaxLoadAvg: 1.84
-lwip.js : 0.406 img/sec; done in 73.891623 sec; minCPUidle: 96%; minFreeMem: 157Mb; MaxLoadAvg: 1.56
+sharp.js : 8.451 img/sec; done in 11.832713 sec; minCPUidle: 92%; minFreeMem: 533Mb; MaxLoadAvg: 0.49
+canvas.js : 5.561 img/sec; done in 17.983573 sec; minCPUidle: 92%; minFreeMem: 492Mb; MaxLoadAvg: 0.34
+gm.js : 2.359 img/sec; done in 42.397843 sec; minCPUidle: 92%; minFreeMem: 459Mb; MaxLoadAvg: 1.4
+gm-imagemagic.js : 1.633 img/sec; done in 61.248407 sec; minCPUidle: 92%; minFreeMem: 464Mb; MaxLoadAvg: 1.41
+lwip.js : 0.821 img/sec; done in 121.843491 sec; minCPUidle: 92%; minFreeMem: 142Mb; MaxLoadAvg: 1.02
 == DONE ==
 ```
 
