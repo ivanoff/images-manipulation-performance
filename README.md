@@ -68,7 +68,7 @@ lwip.js : 0.821 img/sec; done in 121.843491 sec; minCPUidle: 92%; minFreeMem: 14
 == DONE ==
 ```
 
-In this example you can see, than [canvas](https://github.com/Automattic/node-canvas) module is the best, regards to speed of processing of images (~4 imgages per second on my local computer)
+In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~8 imgages per second on my local computer)
 
 
 ## License
