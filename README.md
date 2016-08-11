@@ -60,15 +60,16 @@ Found images:
   Bluestone-valley-view_-_Virginia_-_ForestWander.jpg
 Found modules: canvas.js, gm-imagemagic.js, gm.js, lwip.js
 == START ==
-sharp.js : 8.451 img/sec; done in 11.832713 sec; minCPUidle: 92%; minFreeMem: 533Mb; MaxLoadAvg: 0.49
-canvas.js : 5.561 img/sec; done in 17.983573 sec; minCPUidle: 92%; minFreeMem: 492Mb; MaxLoadAvg: 0.34
-gm.js : 2.359 img/sec; done in 42.397843 sec; minCPUidle: 92%; minFreeMem: 459Mb; MaxLoadAvg: 1.4
-gm-imagemagic.js : 1.633 img/sec; done in 61.248407 sec; minCPUidle: 92%; minFreeMem: 464Mb; MaxLoadAvg: 1.41
-lwip.js : 0.821 img/sec; done in 121.843491 sec; minCPUidle: 92%; minFreeMem: 142Mb; MaxLoadAvg: 1.02
+sharp.js : 9.501 img/sec; done in 10.525585 sec; minCPUidle: 95%; minFreeMem: 929Mb; MaxLoadAvg: 0.68
+canvas.js : 8.246 img/sec; done in 12.12766 sec; minCPUidle: 95%; minFreeMem: 578Mb; MaxLoadAvg: 0.88
+gm.js : 4.433 img/sec; done in 22.557112 sec; minCPUidle: 95%; minFreeMem: 791Mb; MaxLoadAvg: 1.18
+gm-imagemagic.js : 3.654 img/sec; done in 27.367915 sec; minCPUidle: 95%; minFreeMem: 804Mb; MaxLoadAvg: 1.33
+lwip.js : 1.203 img/sec; done in 83.126963 sec; minCPUidle: 95%; minFreeMem: 54Mb; MaxLoadAvg: 1.21
+jimp.js : 0.445 img/sec; done in 224.879934 sec; minCPUidle: 95%; minFreeMem: 82Mb; MaxLoadAvg: 1.28
 == DONE ==
 ```
 
-In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~8 imgages per second on my local computer)
+In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~9 imgages per second on my local computer)
 
 ![Images per second](https://raw.githubusercontent.com/ivanoff/images-manipulation-performance/master/static/modules_images.png)
 
