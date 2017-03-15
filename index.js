@@ -12,6 +12,9 @@ var sleep = require('sleep');
 var os = require("os");
 var cpus = os.cpus();
 
+// Ensure sharp is required before canvas - https://github.com/lovell/sharp/issues/371
+require('sharp');
+
 // Prepare list of images
 var pathSource = process.argv[2] + '/';
 var pathResult = process.argv[3] + '/';

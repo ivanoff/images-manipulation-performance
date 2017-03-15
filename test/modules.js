@@ -3,6 +3,9 @@ var config = require('config');
 var fs = require('fs');
 var staticPath = './test/static/';
 
+// Ensure sharp is required before canvas - https://github.com/lovell/sharp/issues/371
+require('sharp');
+
 describe('Check modules', function () {
 
   var modulesPath = require("path").join(__dirname, '../', config.get('modulesPath'));
