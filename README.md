@@ -2,7 +2,7 @@
 
 Compare Node.js's modules for images processing request 
 
-v1.2.1
+v1.2.3
 
 ## Modules instalation
 
