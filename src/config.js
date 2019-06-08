@@ -1,7 +1,7 @@
-{
-  "modulesPath": "./modules/",
-  "cooldownTimeout": 60,
-  "sizes": [
+module.exports = {
+  imageModulesPath: './modules/',
+  cooldownTimeout: 10,
+  sizes: [
     [50, 50],
     [100, 100],
     [250, 250],
@@ -11,6 +11,6 @@
     [900, 900],
     [1000, 500],
     [1200, 1200],
-    [2000, 2000]
+    [2000, 2000],
   ]
 }

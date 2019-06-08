@@ -2,7 +2,38 @@
 
 Compare Node.js's modules for images processing request 
 
-v1.2.3
+v5.2.1
+
+## Preamble
+
+The fastest way to get the results is
+
+`docker-compose up`
+
+
+## Image processing packages list
+
+- canvas v.1.6.13, [source](https://www.npmjs.com/package/canvas)
+- easyimage v.3.1.1, [source](https://www.npmjs.com/package/easyimage)
+- gm v.1.23.1, [source](https://www.npmjs.com/package/gm)
+- image-js v.0.21.6, [source](https://www.npmjs.com/package/image-js)
+- imagemagick v.0.1.3, [source](https://www.npmjs.com/package/imagemagick)
+- jimp v.0.6.4, [source](https://www.npmjs.com/package/jimp)
+- sharp v.0.22.1, [source](https://www.npmjs.com/package/sharp)
+
+### Deprecated packages
+
+- lwip v.0.0.9, [source](https://www.npmjs.com/package/lwip)
+
+
+## Dependencies
+
+- Node.js v.8.0 or higher
+
+- node-canvas module (see [Modules instalation](#modules_instalation) section)
+
+- gm (see [Modules instalation](#modules_instalation) section)
+
 
 ## Modules instalation
 
@@ -22,9 +53,13 @@ Windows | [Instructions on our wiki](https://github.com/Automattic/node-canvas/w
 
 ### gm
 
-`sudo apt-get install imagemagick`
-
-`sudo apt-get install graphicsmagick`
+OS | Command
+----- | -----
+OS X | `brew install imagemagick graphicsmagick`
+Ubuntu | `sudo apt-get install imagemagick graphicsmagick`
+Fedora | `sudo yum install imagemagick graphicsmagick`
+Solaris | `pkgin install imagemagick graphicsmagick`
+Windows | [Instructions on graphicsmagick](http://www.graphicsmagick.org/INSTALL-windows.html)
 
 
 ## Installing
@@ -45,33 +80,48 @@ Windows | [Instructions on our wiki](https://github.com/Automattic/node-canvas/w
 
 ## Using
 
-`node index.js <source_folder> <result_folder>`
+`IN=<source_folder> OUT=<result_folder> node src/index.js`
 
 where <source_folder> is foulder where original images are stored, <result_folder> is folder, where result images will be saved.
 
 for example:
 
-`node index.js static/original static/result`
+`IN=static/original OUT=static/result node src/index.js`
+
 
 ## Result example
 
 ```
-Found images:
-  4198671-green-sea-view.jpg
-  Beautiful-Sea-Pier-In-Chile-Hdr-Wide-Desktop-Background-Wallpapers-Beautiful-Sea-Wallpaper-.jpg
-  Bluestone-valley-view_-_Virginia_-_ForestWander.jpg
-Found modules: canvas.js, gm-imagemagic.js, gm.js, lwip.js
+Images found: 10
+Modules found: 8
+List of modules: canvas.js, easyimage.js, gm-imagemagic.js, gm.js, image-js.js, jimp.js, sharp-simd.js, sharp.js
+Time for cooling down before each modulle, sec: 60
 == START ==
-sharp.js : 9.501 img/sec; done in 10.525585 sec; minCPUidle: 95%; minFreeMem: 929Mb; MaxLoadAvg: 0.68
-canvas.js : 8.246 img/sec; done in 12.12766 sec; minCPUidle: 95%; minFreeMem: 578Mb; MaxLoadAvg: 0.88
-gm.js : 4.433 img/sec; done in 22.557112 sec; minCPUidle: 95%; minFreeMem: 791Mb; MaxLoadAvg: 1.18
-gm-imagemagic.js : 3.654 img/sec; done in 27.367915 sec; minCPUidle: 95%; minFreeMem: 804Mb; MaxLoadAvg: 1.33
-lwip.js : 1.203 img/sec; done in 83.126963 sec; minCPUidle: 95%; minFreeMem: 54Mb; MaxLoadAvg: 1.21
-jimp.js : 0.445 img/sec; done in 224.879934 sec; minCPUidle: 95%; minFreeMem: 82Mb; MaxLoadAvg: 1.28
-== DONE ==
+name;images/sec;time spent, sec;minCPUidle;minFreeMem, Mb;MaxLoadAvg
+canvas.js;1.696;58.955;97%;41;0.98
+easyimage.js;1.788;55.932;97%;46;1.02
+gm-imagemagic.js;3.898;25.657;97%;55;0.81
+gm.js;4.339;23.048;97%;52;0.97
+image-js.js;0.680;147.098;97%;10;1.42
+jimp.js;0.503;198.705;97%;16;1.50
+sharp-simd.js;8.410;11.890;97%;7;0.72
+sharp.js;9.495;10.532;97%;36;0.46
+== END ==
 ```
 
-In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~9 imgages per second on my local computer)
+name            |images/sec|time spent, sec|minCPUidle|minFreeMem, Mb|MaxLoadAvg
+----------------|----------|---------------|----------|--------------|----------
+canvas.js       |1.696    |58.955  |97%|41 |0.98
+easyimage.js    |1.788    |55.932  |97%|46 |1.02
+gm-imagemagic.js|3.898    |25.657  |97%|55 |0.81
+gm.js           |4.339    |23.048  |97%|52 |0.97
+image-js.js     |0.680    |147.098 |97%|10 |1.42
+jimp.js         |0.503    |198.705 |97%|16 |1.50
+sharp-simd.js   |8.410    |11.890  |97%|7  |0.72
+sharp.js        |**9.495**|10.532|  97%|36 |**0.46**
+
+
+In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~9 images per second on my local computer)
 
 ![Images per second](https://raw.githubusercontent.com/ivanoff/images-manipulation-performance/master/static/modules_images.png)
 

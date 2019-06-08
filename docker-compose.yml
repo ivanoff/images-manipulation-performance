@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  compare_images:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./static/original:/original
+    environment:
+      - IN=/original
+      - OUT=/tmp
+      - COOLDOWN=60
+    tty: true

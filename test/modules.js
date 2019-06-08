@@ -1,22 +1,23 @@
-'use strict';
-var config = require('config');
-var fs = require('fs');
-var staticPath = './test/static/';
+const config = require('../src/config');
+const fs = require('fs');
+const path = require('path');
+const staticPath = './test/static/';
 
 // Ensure sharp is required before canvas - https://github.com/lovell/sharp/issues/371
 require('sharp');
 
 describe('Check modules', function () {
 
-  var modulesPath = require("path").join(__dirname, '../', config.get('modulesPath'));
+  const modulesPath = path.join(__dirname, '../src/', config.imageModulesPath);
+console.log(modulesPath);
   fs.readdir( modulesPath, function (err, modules) {
     modules = modules.filter( function (item) {
-      return fs.lstatSync(config.get('modulesPath') + item).isFile();
+      return fs.lstatSync(path.join(__dirname, '../src/', config.imageModulesPath, item)).isFile();
     });
 
     modules.forEach( function( module ){
       describe('module ' + module, function () {
-        var ip = require(modulesPath+module);
+        const ip = require(modulesPath+module);
 
         it( 'module has process function', function (done) {
           ip.should.have.property('process');
@@ -24,30 +25,32 @@ describe('Check modules', function () {
           done();
         });
 
-        var origin = staticPath+'original.jpg';
-        var result = staticPath+'result.jpg';
+        const from = staticPath+'original.jpg';
+        const to = staticPath+'result.jpg';
 
         it( 'checking reduxtion results', function (done) {
-          ip.process(origin, result, [150,150], function(err){
-            (err === undefined).should.be.true;
-            var statsOrigin = fs.statSync( origin );
-            var statsResult = fs.statSync( result );
+          ip.process({from, to, size: [150,150]})
+          .then(() => {
+            const statsOrigin = fs.statSync( from );
+            const statsResult = fs.statSync( to );
             statsResult.size.should.be.above(0).and.below( statsOrigin.size );
-            fs.unlinkSync( result );
+            fs.unlinkSync( to );
             done();
-          });
+          })
+          .catch(done);
         });
 
         it( 'checking shrink results', function (done) {
-          ip.process(origin, result, [1200,1200], function(err){
+          ip.process({from, to, size:[1200,1200]})
+          .then(() => {
             (err === undefined).should.be.true;
-            var statsOrigin = fs.statSync( origin );
-            var statsResult = fs.statSync( result );
+            const statsOrigin = fs.statSync( from );
+            const statsResult = fs.statSync( to );
             statsResult.size.should.be.above(0).and.above( statsOrigin.size );
-            fs.unlinkSync( result );
+            fs.unlinkSync( to );
             done();
-          });
-
+          })
+          .catch(done);
         });
 
       });

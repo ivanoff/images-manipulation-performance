@@ -2,7 +2,7 @@
 
 // re-calculate new size for avoid of scratches
 exports.correctSize = function (currentX, currentY, newX, newY) {
-  var result = {
+  const result = {
     width:  newX,
     height: newY,
     dx: 0,
