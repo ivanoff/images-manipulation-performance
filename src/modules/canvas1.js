@@ -1,16 +1,20 @@
 const fs = require('fs');
 const calc = require('../lib/calculator');
 
-const Canvas = require('canvas');
-const { createCanvas, loadImage } = require('canvas')
+const Canvas = require('canvas1');
 const Image = Canvas.Image;
 
 module.exports.process = async ({from, to, size}) =>
   new Promise((resolve, reject) => {
-    loadImage(from).then(img => {
+    fs.readFile(from, (err, squid) => {
+      if(err) return reject(err);
+
+      const img = new Image;
+      img.src = squid;
+
       const {dx, width, height} = calc.correctSize(img.width, img.height, ...size);
 
-      const canvas = createCanvas(...size);
+      const canvas = new Canvas(...size);
       const ctx = canvas.getContext('2d');
       ctx.imageSmoothingEnabled = true;
 
@@ -18,14 +22,13 @@ module.exports.process = async ({from, to, size}) =>
 
       fs.createWriteStream(to)
       const stream = canvas.jpegStream({ quality: 90 });
-
+      
       let bufs = [];
       stream.on('data', chunk => bufs.push( chunk ));
 
       stream.on('end', () => {
-        fs.writeFile(to, bufs, err => err? reject(err) : resolve());
+        fs.writeFile(to, bufs, (err) => err? reject(err) : resolve());
       });
 
-    })
-    .catch(reject);
+    });
 });

@@ -13,13 +13,14 @@ The fastest way to get the results is
 
 ## Image processing packages list
 
-- canvas v.1.6.13, [source](https://www.npmjs.com/package/canvas)
+- canvas v.2.6.0, [source](https://www.npmjs.com/package/canvas)
+- canvas v.1.6.13, [source](https://github.com/Automattic/node-canvas/releases/tag/v1.6.13)
 - easyimage v.3.1.1, [source](https://www.npmjs.com/package/easyimage)
 - gm v.1.23.1, [source](https://www.npmjs.com/package/gm)
-- image-js v.0.21.6, [source](https://www.npmjs.com/package/image-js)
+- image-js v.0.21.7, [source](https://www.npmjs.com/package/image-js)
 - imagemagick v.0.1.3, [source](https://www.npmjs.com/package/imagemagick)
-- jimp v.0.6.4, [source](https://www.npmjs.com/package/jimp)
-- sharp v.0.22.1, [source](https://www.npmjs.com/package/sharp)
+- jimp v.0.6.8, [source](https://www.npmjs.com/package/jimp)
+- sharp v.0.23.0, [source](https://www.npmjs.com/package/sharp)
 
 ### Deprecated packages
 
