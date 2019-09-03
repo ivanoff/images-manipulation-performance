@@ -1,6 +1,6 @@
 {
   "name": "images-manipulation-performance",
-  "version": "5.2.1",
+  "version": "6.3.1",
   "description": "Compare Nodejs image processing libraries",
   "author": "Dimitry Ivanov <2@ivanoff.org.ua> # curl -A cv ivanoff.org.ua ",
   "license": "MIT",
