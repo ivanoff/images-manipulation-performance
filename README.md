@@ -105,27 +105,29 @@ List of modules: canvas.js, easyimage.js, gm-imagemagic.js, gm.js, image-js.js, 
 Time for cooling down before each modulle, sec: 60
 == START ==
 name;images/sec;time spent, sec;minCPUidle;minFreeMem, Mb;MaxLoadAvg
-canvas.js;1.696;58.955;97%;41;0.98
-easyimage.js;1.788;55.932;97%;46;1.02
-gm-imagemagic.js;3.898;25.657;97%;55;0.81
-gm.js;4.339;23.048;97%;52;0.97
-image-js.js;0.680;147.098;97%;10;1.42
-jimp.js;0.503;198.705;97%;16;1.50
-sharp-simd.js;8.410;11.890;97%;7;0.72
-sharp.js;9.495;10.532;97%;36;0.46
+canvas1.js;1.802;55.483;94%;569;1.14
+canvas2.js;6.660;15.015;94%;578;0.70
+easyimage.js;2.269;44.063;94%;580;1.57
+gm-imagemagic.js;4.944;20.226;94%;580;1.68
+gm.js;5.581;17.919;94%;580;1.48
+image-js.js;0.984;101.661;94%;536;1.05
+jimp.js;0.716;139.670;94%;514;1.86
+sharp-simd.js;10.575;9.456;94%;510;0.97
+sharp.js;11.163;8.958;94%;495;0.64
 == END ==
 ```
 
 name            |images/sec|time spent, sec|minCPUidle|minFreeMem, Mb|MaxLoadAvg
 ----------------|----------|---------------|----------|--------------|----------
-canvas.js       |1.696    |58.955  |97%|41 |0.98
-easyimage.js    |1.788    |55.932  |97%|46 |1.02
-gm-imagemagic.js|3.898    |25.657  |97%|55 |0.81
-gm.js           |4.339    |23.048  |97%|52 |0.97
-image-js.js     |0.680    |147.098 |97%|10 |1.42
-jimp.js         |0.503    |198.705 |97%|16 |1.50
-sharp-simd.js   |8.410    |11.890  |97%|7  |0.72
-sharp.js        |**9.495**|10.532|  97%|36 |**0.46**
+canvas1.js | 1.802 | 55.483 | 94% | 569 | 1.14
+canvas2.js | 6.660 | 15.015 | 94% | 578 | 0.70
+easyimage.js | 2.269 | 44.063 | 94% | 580 | 1.57
+gm-imagemagic.js | 4.944 | 20.226 | 94% | 580 | 1.68
+gm.js | 5.581 | 17.919 | 94% | 580 | 1.48
+image-js.js | 0.984 | 101.661 | 94% | 536 | 1.05
+jimp.js | 0.716 | 139.670 | 94% | 514 | 1.86
+sharp-simd.js | 10.575 | 9.456 | 94% | 510 | 0.97
+sharp.js | **11.163** | 8.958 | 94% | 495 | 0.64
 
 
 In this example you can see, than [sharp](http://sharp.dimens.io/en/stable/) module is the best, regards to speed of processing of images (~9 images per second on my local computer)
