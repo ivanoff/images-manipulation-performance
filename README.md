@@ -46,11 +46,13 @@ For example, you can quickly install the dependencies by using the command for y
 
 OS | Command
 ----- | -----
-OS X | `brew install pkg-config cairo libpng jpeg giflib`
-Ubuntu | `sudo apt-get install libcairo2-dev libjpeg8-dev libpango1.0-dev libgif-dev build-essential g++`
-Fedora | `sudo yum install cairo cairo-devel cairomm-devel libjpeg-turbo-devel pango pango-devel pangomm pangomm-devel giflib-devel`
-Solaris | `pkgin install cairo pkg-config xproto renderproto kbproto xextproto`
-Windows | [Instructions on our wiki](https://github.com/Automattic/node-canvas/wiki/Installation---Windows)
+OS X | `brew install pkg-config cairo pango libpng jpeg giflib librsvg`
+Ubuntu | `sudo apt-get install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev`
+Fedora | `sudo yum install gcc-c++ cairo-devel pango-devel libjpeg-turbo-devel giflib-devel`
+Solaris | `pkgin install cairo pango pkg-config xproto renderproto kbproto xextproto`
+OpenBSD | `doas pkg_add cairo pango png jpeg giflib`
+Windows | See the [wiki](https://github.com/Automattic/node-canvas/wiki/Installation:-Windows)
+Others | See the [wiki](https://github.com/Automattic/node-canvas/wiki)
 
 ### gm
 

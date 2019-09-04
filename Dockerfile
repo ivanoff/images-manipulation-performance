@@ -5,7 +5,7 @@ RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 RUN apt-get update -y \
     && apt-get upgrade -y \
     && apt-get install -y build-essential python python3 libcairo2-dev libjpeg8-dev libpango1.0-dev \
-        libgif-dev build-essential g++ imagemagick graphicsmagick
+        libgif-dev libjpeg-dev librsvg2-dev build-essential g++ imagemagick graphicsmagick
 
 ENV TERM linux
 ENV DEBIAN_FRONTEND noninteractive
