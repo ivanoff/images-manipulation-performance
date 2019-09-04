@@ -2,7 +2,7 @@
 
 Compare Node.js's modules for images processing request 
 
-v6.3.1
+v6.4.1
 
 ## Preamble
 
