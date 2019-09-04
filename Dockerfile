@@ -36,4 +36,8 @@ RUN npm -v
 
 RUN npm install
 
+# Cannot find module '../build/Release/canvas.node'
+RUN rm -rf node_modules
+RUN npm install
+
 CMD npm start
