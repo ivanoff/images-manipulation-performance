@@ -1,9 +1,7 @@
 const fs = require('fs');
 const calc = require('../lib/calculator');
 
-const Canvas = require('canvas');
-const { createCanvas, loadImage } = require('canvas')
-const Image = Canvas.Image;
+const { createCanvas, loadImage } = require('canvas2')
 
 module.exports.process = async ({from, to, size}) =>
   new Promise((resolve, reject) => {

@@ -8,6 +8,10 @@ v6.3.1
 
 The fastest way to get the results is
 
+`git clone https://github.com/ivanoff/images-manipulation-performance.git`
+
+`cd images-manipulation-performance`
+
 `docker-compose up`
 
 
