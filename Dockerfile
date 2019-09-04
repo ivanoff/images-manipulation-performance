@@ -37,7 +37,8 @@ RUN npm -v
 RUN npm install
 
 # Cannot find module '../build/Release/canvas.node'
-RUN rm -rf node_modules
-RUN npm install
+RUN npm install -g node-gyp
+RUN cd node_modules/canvas && node-gyp rebuild
+RUN cd node_modules/canvas1 && node-gyp rebuild
 
 CMD npm start
